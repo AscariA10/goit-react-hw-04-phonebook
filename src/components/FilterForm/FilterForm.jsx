@@ -1,34 +1,55 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
-export class FilterForm extends Component {
-   state = {
-      filterText: '',
-   };
+export const FilterForm = ({ onFilter }) => {
+   const [filterText, setFilterText] = useState('');
 
-   onFilterInput = event => {
-      //   console.log(this.state.filterText);
-      this.setState({ filterText: event.target.value });
+   useEffect(() => {
+      onFilter(filterText);
+   }, [filterText]);
 
-      this.props.onFilter(event.target.value);
-   };
-
-   render() {
-      return (
-         <div>
-            <label>
-               Filter:{' '}
-               <input
-                  type="text"
-                  name="filterForm"
-                  onChange={this.onFilterInput}
-                  value={this.state.filterText}
-               />
-            </label>
-         </div>
-      );
+   function onFilterInput(event) {
+      setFilterText(event.target.value);
    }
-}
+
+   return (
+      <div>
+         <label>
+            Filter:{' '}
+            <input type="text" name="filterForm" onChange={onFilterInput} value={filterText} />
+         </label>
+      </div>
+   );
+};
+
+// export class FilterForm extends Component {
+//    state = {
+//       filterText: '',
+//    };
+
+// onFilterInput = event => {
+//    //   console.log(this.state.filterText);
+//    this.setState({ filterText: event.target.value });
+
+//    this.props.onFilter(event.target.value);
+// };
+
+//    render() {
+// return (
+//    <div>
+//       <label>
+//          Filter:{' '}
+//          <input
+//             type="text"
+//             name="filterForm"
+//             onChange={this.onFilterInput}
+//             value={this.state.filterText}
+//          />
+//       </label>
+//    </div>
+// );
+//    }
+// }
 
 FilterForm.propTypes = {
    props: PropTypes.objectOf(PropTypes.function),
