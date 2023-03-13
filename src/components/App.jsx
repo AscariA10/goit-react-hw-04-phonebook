@@ -11,13 +11,6 @@ export const App = () => {
    const [contacts, setContacts] = useState(savedContactList ?? []);
    const [filter, setFilter] = useState('');
 
-   // useEffect(() => {
-   //    if (!savedContactList) {
-   //       return;
-   //    }
-   //    setContacts([...savedContactList]);
-   // }, []);
-
    useEffect(() => {
       localStorage.setItem('saved-contact-list', JSON.stringify(contacts));
    }, [contacts.length]);
